@@ -13,29 +13,27 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name = "item")
-public class ItemEntity {
+@Entity(name = "rental")
+public class RentalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String itemName;
+    private Integer rentalId;
+
+    @ManyToOne
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private ItemEntity item;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Double price;
-    private Integer qty;
-    private boolean returned;
+    private Date issueDate;
 
-    public void rentItem() {
-        if (this.qty > 0) {
-            this.qty--;
-        } else {
-            throw new IllegalStateException("No Item available to rent.");
-        }
-    }
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date returnDate;
 
+    @Temporal(TemporalType.DATE)
+    private Date dueDate;
 
-    public void returnItem() {
-        this.qty++;
-    }
+    private double fine;
+    private boolean isReturned;
 }

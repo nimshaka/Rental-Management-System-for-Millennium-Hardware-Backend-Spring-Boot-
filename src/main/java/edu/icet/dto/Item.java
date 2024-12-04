@@ -8,6 +8,17 @@ import java.util.Date;
 public class Item {
     private Integer id;
     private String itemName;
-    private Date addDate;
-    private Integer price;
+    private Double price;
+    private Integer qty;
+    private boolean returned;
+
+    public void rentItem() {
+
+        this.qty--;
+    }
+
+    public void returnItem() {
+
+        this.qty++;
+    }
 }
